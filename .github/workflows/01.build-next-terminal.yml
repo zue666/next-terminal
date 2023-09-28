@@ -3,9 +3,8 @@ name: 01.build-next-terminal
 on:
     push:
       branches: [ main ]
-      paths: web
     pull_request:
-      branches:  none # [ main ]
+      branches:  [ main ]
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
@@ -23,7 +22,11 @@ jobs:
           run: echo ${{ steps.vars.outputs.sha_short }}
         - name: Login to Docker Hub
           run: |
-            echo "${{ secrets.VCR_PASSOWRD }}" | docker login vcr.vsrv.pw -u ${{ secrets.VCR_USERNAME }} --password-stdin
+            docker login vcr.vsrv.pw -u ${{ secrets.VCR_USERNAME }} --password ${{ secrets.VCR_PASSWORD }}
+        - name: node Setup
+          uses: actions/setup-node@v2
+          with:
+            node-version: '16'
         - name: npm install
           run: |
             cd web
