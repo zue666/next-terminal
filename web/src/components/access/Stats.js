@@ -57,14 +57,14 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
 
     return (
         <div>
-            <Descriptions title="系统信息" column={4}>
-                <Descriptions.Item label="主机名称">{stats.hostname}</Descriptions.Item>
-                <Descriptions.Item label="运行时长">{upDays}天</Descriptions.Item>
+            <Descriptions title="System information" column={4}>
+                <Descriptions.Item label="Hostname">{stats.hostname}</Descriptions.Item>
+                <Descriptions.Item label="Uptime">{upDays}天</Descriptions.Item>
             </Descriptions>
 
             <Row justify="center" align="middle">
                 <Col>
-                    <Descriptions title="负载" column={4}>
+                    <Descriptions title="load" column={4}>
                         <Descriptions.Item label='Load1'>
                             <div className='description-content'>
                                 <Progress percent={stats.load1} steps={20} size={'small'}/>
@@ -86,22 +86,22 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
 
 
             <Descriptions title="CPU" column={4}>
-                <Descriptions.Item label="用户">
+                <Descriptions.Item label="user">
                     {stats.cpu['user'].toFixed(2)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="系统">
+                <Descriptions.Item label="system">
                     {stats.cpu['system'].toFixed(2)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="空闲">
+                <Descriptions.Item label="idle">
                     {stats.cpu['idle'].toFixed(2)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="IO等待">
+                <Descriptions.Item label="IO wait">
                     {stats.cpu['ioWait'].toFixed(2)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="硬中断">
+                <Descriptions.Item label="irq">
                     {stats.cpu['irq'].toFixed(2)}%
                 </Descriptions.Item>
-                <Descriptions.Item label="软中断">
+                <Descriptions.Item label="soft-irq">
                     {stats.cpu['softIrq'].toFixed(2)}%
                 </Descriptions.Item>
                 <Descriptions.Item label="nice">
@@ -113,10 +113,10 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
             </Descriptions>
 
             <Descriptions title="内存" column={4}>
-                <Descriptions.Item label="物理内存大小">{renderSize(stats.memTotal)}</Descriptions.Item>
-                <Descriptions.Item label="剩余内存大小">{renderSize(stats.memFree)}</Descriptions.Item>
-                <Descriptions.Item label="可用内存大小">{renderSize(stats.memAvailable)}</Descriptions.Item>
-                <Descriptions.Item label="使用占比">
+                <Descriptions.Item label="Total Memory">{renderSize(stats.memTotal)}</Descriptions.Item>
+                <Descriptions.Item label="Free Memory">{renderSize(stats.memFree)}</Descriptions.Item>
+                <Descriptions.Item label="Available Memory">{renderSize(stats.memAvailable)}</Descriptions.Item>
+                <Descriptions.Item label="Usage Ratio">
                     <div className='description-content'>
                         <Progress percent={memUsage} steps={20} size={'small'}/>
                     </div>
@@ -127,7 +127,7 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
                     label="交换内存大小">{renderSize(stats.swapTotal)}</Descriptions.Item>
                 <Descriptions.Item
                     label="交换内存剩余">{renderSize(stats.swapFree)}</Descriptions.Item>
-                <Descriptions.Item label="使用占比">
+                <Descriptions.Item label="Usage Ratio">
                     <div className='description-content'>
                         <Progress percent={swapUsage} steps={20} size={'small'}/>
                     </div>
@@ -138,17 +138,17 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
                 {
                     fileSystems.map((item, index) => {
                         return (
-                            <React.Fragment key={'磁盘' + index}>
-                                <Descriptions.Item label="挂载路径" key={'挂载路径' + index}>
+                            <React.Fragment key={'disk' + index}>
+                                <Descriptions.Item label="MountPath" key={'MountPath' + index}>
                                     {item['mountPoint']}
                                 </Descriptions.Item>
-                                <Descriptions.Item label="已经使用" key={'已经使用' + index}>
+                                <Descriptions.Item label="Used" key={'Used' + index}>
                                     {renderSize(item['used'])}
                                 </Descriptions.Item>
-                                <Descriptions.Item label="剩余空间" key={'剩余空间' + index}>
+                                <Descriptions.Item label="Remaining" key={'Remaining' + index}>
                                     {renderSize(item['free'])}
                                 </Descriptions.Item>
-                                <Descriptions.Item label="使用占比" key={'使用占比' + index}>
+                                <Descriptions.Item label="UsageRatio" key={'UsageRatio' + index}>
                                     <div className='description-content'>
                                         <Progress
                                             percent={(item['used'] * 100 / (item['used'] + item['free'])).toFixed(2)}
@@ -161,7 +161,7 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
                 }
             </Descriptions>
 
-            <Descriptions title="网络" column={4}>
+            <Descriptions title="Network" column={4}>
                 {
                     Object.keys(network).map((key, index) => {
                         let prevNetwork = prevStats.network;
@@ -174,15 +174,15 @@ const Stats = ({sessionId, visible, queryInterval = 5000}) => {
                         }
 
                         return (
-                            <React.Fragment key={'网络' + index}>
-                                <Descriptions.Item label="网卡" key={'网卡' + index}>{key}</Descriptions.Item>
+                            <React.Fragment key={'Network' + index}>
+                                <Descriptions.Item label="NIC" key={'NIC' + index}>{key}</Descriptions.Item>
                                 <Descriptions.Item label="IPv4" key={'IPv4' + index}>
                                     {network[key]['ipv4']}
                                 </Descriptions.Item>
-                                <Descriptions.Item label="接收" key={'接收' + index}>
+                                <Descriptions.Item label="RX" key={'RX' + index}>
                                     {renderSize(network[key]['rx'])} &nbsp; {renderSize(rxOfSeconds)}/秒
                                 </Descriptions.Item>
-                                <Descriptions.Item label="发送" key={'发送' + index}>
+                                <Descriptions.Item label="TX" key={'TX' + index}>
                                     {renderSize(network[key]['tx'])} &nbsp; {renderSize(txOfSeconds)}/秒
                                 </Descriptions.Item>
                             </React.Fragment>

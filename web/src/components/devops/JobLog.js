@@ -20,14 +20,14 @@ const JobLog = ({
             width: 48,
         },
         {
-            title: '执行时间',
+            title: 'execution time',
             dataIndex: 'timestamp',
             key: 'timestamp',
             hideInSearch: true,
             sorter: true,
         },
         {
-            title: '日志',
+            title: 'logs',
             dataIndex: 'message',
             key: 'message',
             hideInSearch: true,
@@ -38,7 +38,7 @@ const JobLog = ({
     return (
         <div>
             <Drawer
-                title={'计划任务日志'}
+                title={'Scheduled task log'}
                 placement="right"
                 width={window.innerWidth * 0.9}
                 closable={true}
@@ -83,7 +83,7 @@ const JobLog = ({
                             showSizeChanger: true,
                         }}
                         dateFormatter="string"
-                        headerTitle="计划任务日志"
+                        headerTitle="Scheduled task log"
                         toolBarRender={() => [
                             <Button
                                 key="button"
@@ -97,7 +97,7 @@ const JobLog = ({
                                     setLoading(false);
                                 }}
                             >
-                                清空
+                                Clear
                             </Button>,
                         ]}
                     /> : undefined}

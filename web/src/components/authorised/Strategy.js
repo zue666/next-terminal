@@ -34,7 +34,7 @@ const Strategy = () => {
         valueType: 'indexBorder',
         width: 48,
     }, {
-        title: '名称',
+        title: 'Name',
         dataIndex: 'name',
         key: 'name',
         sorter: true,
@@ -46,7 +46,7 @@ const Strategy = () => {
             return view;
         },
     }, {
-        title: '上传',
+        title: 'Upload',
         dataIndex: 'upload',
         key: 'upload',
         hideInSearch: true,
@@ -54,7 +54,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '下载',
+        title: 'Download',
         dataIndex: 'download',
         key: 'download',
         hideInSearch: true,
@@ -62,7 +62,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '编辑',
+        title: 'Edit',
         dataIndex: 'edit',
         key: 'edit',
         hideInSearch: true,
@@ -70,7 +70,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '删除',
+        title: 'Delete',
         dataIndex: 'delete',
         key: 'delete',
         hideInSearch: true,
@@ -78,7 +78,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '重命名',
+        title: 'Rename',
         dataIndex: 'rename',
         key: 'rename',
         hideInSearch: true,
@@ -86,7 +86,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '复制',
+        title: 'Copy',
         dataIndex: 'copy',
         key: 'copy',
         hideInSearch: true,
@@ -94,7 +94,7 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '粘贴',
+        title: 'Paste',
         dataIndex: 'paste',
         key: 'paste',
         hideInSearch: true,
@@ -102,18 +102,18 @@ const Strategy = () => {
             return renderStatus(text);
         }
     }, {
-        title: '创建时间',
+        title: 'Creation Time',
         dataIndex: 'created',
         key: 'created',
         hideInSearch: true,
     },
         {
-            title: '操作',
+            title: 'Action',
             valueType: 'option',
             key: 'option',
             render: (text, record, _, action) => [
                 <Show menu={'strategy-detail'} key={'strategy-get'}>
-                    <Link key="get" to={`/strategy/${record['id']}`}>详情</Link>
+                    <Link key="get" to={`/strategy/${record['id']}`}>Details</Link>
                 </Show>
                 ,
                 <Show menu={'strategy-edit'} key={'strategy-edit'}>
@@ -124,22 +124,22 @@ const Strategy = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        编辑
+                        Edit
                     </a>
                 </Show>
                 ,
                 <Show menu={'strategy-del'} key={'strategy-del'}>
                     <Popconfirm
                         key={'confirm-delete'}
-                        title="您确认要删除此行吗?"
+                        title="Are you sure you want to delete this row?"
                         onConfirm={async () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
-                        <a key='delete' className='danger'>删除</a>
+                        <a key='delete' className='danger'>delete</a>
                     </Popconfirm>
                 </Show>
                 ,
@@ -189,13 +189,13 @@ const Strategy = () => {
                         defaultPageSize: 10,
                     }}
                     dateFormatter="string"
-                    headerTitle="授权策略"
+                    headerTitle="Authorization strategy"
                     toolBarRender={() => [
                         <Show menu={'strategy-add'}>
                             <Button key="button" type="primary" onClick={() => {
                                 setVisible(true)
                             }}>
-                                新建
+                                New
                             </Button>
                         </Show>
                         ,

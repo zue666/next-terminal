@@ -62,7 +62,7 @@ const AccessGatewayModal = ({
 
     return (
         <Modal
-            title={id ? '更新接入网关' : '新建接入网关'}
+            title={id ? 'Update Access Gateway' : 'Create New Access Gateway'}
             visible={visible}
             maskClosable={false}
             destroyOnClose={true}
@@ -81,38 +81,38 @@ const AccessGatewayModal = ({
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='OK'
+            cancelText='Cancel'
         >
             <Form form={form} {...formItemLayout}>
                 <Form.Item name='id' noStyle>
                     <Input hidden={true}/>
                 </Form.Item>
-                <Form.Item label="网关类型" name='gatewayType'
-                        rules={[{required: true, message: '请选择接网关类型'}]}>
+                <Form.Item label="Gateway Type" name='gatewayType'
+                        rules={[{required: true, message: 'Please Select the GatewayType'}]}>
                     <Select onChange={handleGatewayTypeChange}>
                         <Select.Option key='ssh' value='ssh'>SSH</Select.Option>
                         <Select.Option key='rdp' value='rdp'>RDP</Select.Option>
                     </Select>
                 </Form.Item>
-                <Form.Item label="网关名称" name='name' rules={[{required: true, message: "请输入网关名称"}]}>
-                    <Input placeholder="网关名称"/>
+                <Form.Item label="Gateway Name" name='name' rules={[{required: true, message: "请输入网关名称"}]}>
+                    <Input placeholder="Gateway Name"/>
                 </Form.Item>
 
-                <Form.Item label="主机" name='ip' rules={[{required: true, message: '请输入网关的主机名称或者IP地址'}]}>
-                    <Input placeholder="网关的主机名称或者IP地址"/>
+                <Form.Item label="Host" name='ip' rules={[{required: true, message: 'Please enter the host name or IP address of the gateway'}]}>
+                    <Input placeholder="The gateway’s host name or IP address"/>
                 </Form.Item>
 
-                <Form.Item label="端口号" name='port' rules={[{required: true, message: '请输入端口'}]}>
-                    <InputNumber min={1} max={65535} placeholder='TCP端口'/>
+                <Form.Item label="Port" name='port' rules={[{required: true, message: 'Please enter the port'}]}>
+                    <InputNumber min={1} max={65535} placeholder='TCP port'/>
                 </Form.Item>
                 {gatewayType === 'ssh' &&
                 <>
-                    <Form.Item label="账户类型" name='accountType'
-                            rules={[{required: true, message: '请选择接账户类型'}]}>
+                    <Form.Item label="Account Type" name='accountType'
+                            rules={[{required: true, message: 'Please select the Account Type'}]}>
                         <Select onChange={handleAccountTypeChange}>
-                            <Select.Option key='password' value='password'>密码</Select.Option>
-                            <Select.Option key='private-key' value='private-key'>密钥</Select.Option>
+                            <Select.Option key='password' value='password'>Password</Select.Option>
+                            <Select.Option key='private-key' value='private-key'>Key</Select.Option>
                         </Select>
                     </Form.Item>
 
@@ -120,27 +120,27 @@ const AccessGatewayModal = ({
                         accountType === 'password' ?
                             <>
                                 <input type='password' hidden={true} autoComplete='new-password'/>
-                                <Form.Item label="授权账户" name='username'
+                                <Form.Item label="Username" name='username'
                                         rules={[{required: true}]}>
                                     <Input placeholder="root"/>
                                 </Form.Item>
 
-                                <Form.Item label="授权密码" name='password'
+                                <Form.Item label="Password" name='password'
                                         rules={[{required: true}]}>
                                     <Input.Password placeholder="password"/>
                                 </Form.Item>
                             </>
                             :
                             <>
-                                <Form.Item label="授权账户" name='username' rules={[{required: true}]}>
-                                    <Input placeholder="输入授权账户"/>
+                                <Form.Item label="Username" name='username' rules={[{required: true}]}>
+                                    <Input placeholder="Username"/>
                                 </Form.Item>
 
-                                <Form.Item label="私钥" name='privateKey'
-                                        rules={[{required: true, message: '请输入私钥'}]}>
+                                <Form.Item label="Private Key" name='privateKey'
+                                        rules={[{required: true, message: 'Enter PrivateKey'}]}>
                                     <TextArea rows={4}/>
                                 </Form.Item>
-                                <Form.Item label="私钥密码" name='passphrase'>
+                                <Form.Item label="PrivateKey Passphrase" name='passphrase'>
                                     <TextArea rows={1}/>
                                 </Form.Item>
                             </>

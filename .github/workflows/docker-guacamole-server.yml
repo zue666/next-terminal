@@ -36,5 +36,3 @@ jobs:
           tags: |
             vcr.vsrv.pw/connect/guacamole-server:latest
             vcr.vsrv.pw/connect/guacamole-server:1.4.0
-          cache-from: type=registry,ref=vcr.vsrv.pw/connect/guacamole-server:cache
-          cache-to: type=registry,ref=vcr.vsrv.pw/connect/guacamole-server:cache,mode=max

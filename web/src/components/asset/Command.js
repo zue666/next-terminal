@@ -31,7 +31,7 @@ const Command = () => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
         }, {
             title: '内容',
@@ -96,8 +96,8 @@ const Command = () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
                         <a key='delete' className='danger'>删除</a>
                     </Popconfirm>

@@ -15,7 +15,7 @@ const GuacdClipboard = ({visible, clipboardText, handleOk, handleCancel}) => {
     return (
         <div>
             <Modal
-                title="剪贴板"
+                title="clipboard"
                 maskClosable={false}
                 visible={visible}
                 onOk={() => {

@@ -10,7 +10,7 @@ axios.defaults.baseURL = server;
 
 const handleError = (error) => {
     if ("Network Error" === error.toString()) {
-        message.error('网络异常');
+        message.error('network anomaly');
         return false;
     }
     if (error.response !== undefined && error.response.status === 401) {

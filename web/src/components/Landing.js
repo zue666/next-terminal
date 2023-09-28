@@ -12,7 +12,7 @@ const Landing = () => {
             justifyContent: 'center',
             backgroundColor: 'white'
         }}>
-            <div style={{fontWeight: 'bold'}}>正在努力加载中...</div>
+            <div style={{fontWeight: 'bold'}}>Loading...</div>
         </div>
     );
 };

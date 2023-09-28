@@ -368,7 +368,7 @@ const AssetModal = function ({
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                         </Panel>
                         <Panel header={<Text strong>认证</Text>} key="认证">
@@ -430,7 +430,7 @@ Windows需要对远程应用程序的名称使用特殊的符号。
                                 label="启用"
                                 valuePropName="checked"
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"
+                                <Switch checkedChildren="On" unCheckedChildren="Off"
                                         onChange={async (checked, event) => {
                                             setEnableDrive(checked);
                                             if (checked === true) {
@@ -798,8 +798,8 @@ Windows需要对远程应用程序的名称使用特殊的符号。
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='ok'
+            cancelText='Cancel'
         >
 
             <Form form={form} {...formLayout}>

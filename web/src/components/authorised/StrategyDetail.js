@@ -21,7 +21,7 @@ const StrategyDetail = () => {
         <div>
             <Layout.Content className="page-detail-warp">
                 <Tabs activeKey={activeKey} onChange={handleTagChange}>
-                    <Tabs.TabPane tab="基本信息" key="info">
+                    <Tabs.TabPane tab="Basic Information" key="info">
                         <StrategyInfo active={activeKey === 'info'} id={id}/>
                     </Tabs.TabPane>
                 </Tabs>

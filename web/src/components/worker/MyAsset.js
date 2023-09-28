@@ -20,7 +20,7 @@ const MyAsset = () => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
             sorter: true,
             render: (text, record) => {
@@ -37,7 +37,7 @@ const MyAsset = () => {
                 </div>
             },
         }, {
-            title: '协议',
+            title: 'Protocol',
             dataIndex: 'protocol',
             key: 'protocol',
             sorter: true,
@@ -61,7 +61,7 @@ const MyAsset = () => {
                 );
             },
         }, {
-            title: '标签',
+            title: 'Tags',
             dataIndex: 'tags',
             key: 'tags',
             render: tags => {
@@ -89,28 +89,28 @@ const MyAsset = () => {
                 );
             },
         }, {
-            title: '状态',
+            title: 'State',
             dataIndex: 'active',
             key: 'active',
             sorter: true,
             render: (text, record) => {
                 if (record['testing'] === true) {
                     return (
-                        <Tooltip title='测试中'>
-                            <Badge status="processing" text='测试中'/>
+                        <Tooltip title='Testing'>
+                            <Badge status="processing" text='Testing'/>
                         </Tooltip>
                     )
                 }
                 if (text) {
                     return (
-                        <Tooltip title='运行中'>
-                            <Badge status="success" text='运行中'/>
+                        <Tooltip title='Running'>
+                            <Badge status="success" text='Running'/>
                         </Tooltip>
                     )
                 } else {
                     return (
                         <Tooltip title={record['activeMessage']}>
-                            <Badge status="error" text='不可用'/>
+                            <Badge status="error" text='unavailable'/>
                         </Tooltip>
                     )
                 }
@@ -122,14 +122,14 @@ const MyAsset = () => {
 
                 return (
                     <Select>
-                        <Select.Option value="true">运行中</Select.Option>
-                        <Select.Option value="false">不可用</Select.Option>
+                        <Select.Option value="true">running</Select.Option>
+                        <Select.Option value="false">unavailable</Select.Option>
                     </Select>
                 );
             },
         },
         {
-            title: '最后接入时间',
+            title: 'Last Access Time',
             key: 'lastAccessTime',
             sorter: true,
             dataIndex: 'lastAccessTime',
@@ -146,7 +146,7 @@ const MyAsset = () => {
             },
         },
         {
-            title: '操作',
+            title: 'Action',
             valueType: 'option',
             key: 'option',
             render: (text, record, index, action) => {
@@ -167,7 +167,7 @@ const MyAsset = () => {
                         rel="noreferrer"
                         target='_blank'
                     >
-                        接入
+                        Open
                     </a>,
                 ]
             },
@@ -215,7 +215,7 @@ const MyAsset = () => {
                     pageSize: 10,
                 }}
                 dateFormatter="string"
-                headerTitle="资产列表"
+                headerTitle="Asset List"
             />
         </div>
     );

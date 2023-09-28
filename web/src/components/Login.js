@@ -57,7 +57,7 @@ const LoginForm = () => {
 
     const handleOk = (loginAccount, totp) => {
         if (!strings.hasText(totp)) {
-            message.warn("请输入双因素认证码");
+            message.warn("Please enter the two-factor authentication code");
             return false;
         }
         loginAccount['totp'] = totp;
@@ -96,32 +96,32 @@ const LoginForm = () => {
                     <Text>{branding['description']}</Text>
                 </div>
                 <Form onFinish={handleSubmit} className="login-form">
-                    <Form.Item name='username' rules={[{required: true, message: '请输入登录账号！'}]}>
-                        <Input prefix={<UserOutlined/>} placeholder="登录账号"/>
+                    <Form.Item name='username' rules={[{required: true, message: 'Please enter the username'}]}>
+                        <Input prefix={<UserOutlined/>} placeholder="Username"/>
                     </Form.Item>
-                    <Form.Item name='password' rules={[{required: true, message: '请输入登录密码！'}]}>
-                        <Input.Password prefix={<LockOutlined/>} placeholder="登录密码"/>
+                    <Form.Item name='password' rules={[{required: true, message: 'Please enter the password'}]}>
+                        <Input.Password prefix={<LockOutlined/>} placeholder="Password"/>
                     </Form.Item>
                     <Form.Item name='remember' valuePropName='checked' initialValue={false}>
-                        <Checkbox>保持登录</Checkbox>
+                        <Checkbox>Keep me logged in</Checkbox>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button"
                                 loading={inLogin}>
-                            登录
+                            Login
                         </Button>
                     </Form.Item>
                 </Form>
             </Card>
 
             <PromptModal
-                title={'双因素认证'}
+                title={'Two-factor authentication'}
                 open={prompt}
                 onOk={(value) => {
                     handleOk(account, value)
                 }}
                 onCancel={() => setPrompt(false)}
-                placeholder={"请输入双因素认证码"}
+                placeholder={"Please enter the two-factor authentication code"}
             >
 
             </PromptModal>

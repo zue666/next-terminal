@@ -70,7 +70,7 @@ const UserLayout = () => {
                         navigate('/login');
                     }}
                     okText="确定"
-                    cancelText="取消"
+                    cancelText="cancel"
                     placement="left"
                 >
                     <LogoutOutlined/> 退出登录

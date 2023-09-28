@@ -80,8 +80,8 @@ const UserAuthorised = ({type, id, visible, handleOk, handleCancel, confirmLoadi
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='ok'
+            cancelText='Cancel'
         >
 
             <Form form={form} {...formItemLayout} >

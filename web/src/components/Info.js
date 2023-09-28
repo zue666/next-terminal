@@ -31,14 +31,14 @@ const Info = () => {
         }
         return {
             validateStatus: 'error',
-            errorMsg: '两次输入的密码不一致',
+            errorMsg: 'passwords did not match',
         };
     }
 
     const changePassword = async (values) => {
         let success = await accountApi.changePassword(values);
         if (success) {
-            message.success('密码修改成功，即将跳转至登录页面');
+            message.success('The password has been changed successfully and you will be redirected to the login page.');
             window.location.href = '/#';
         }
     }
@@ -47,49 +47,49 @@ const Info = () => {
         <>
             <Content className={'page-container-white'}>
                 <Tabs className={'info-tab'} tabPosition={'left'} tabBarStyle={{width: 150}}>
-                    <Tabs.TabPane tab="修改密码" key="change-password">
-                        <Title level={4}>修改密码</Title>
+                    <Tabs.TabPane tab="Change Password" key="change-password">
+                        <Title level={4}>Change Password</Title>
                         <div style={{margin: 16}}></div>
                         <Form name="password" onFinish={changePassword}>
                             <input type='password' hidden={true} autoComplete='new-password'/>
                             <Form.Item
                                 name="oldPassword"
-                                label="原始密码"
+                                label="Current Password"
                                 rules={[
                                     {
                                         required: true,
-                                        message: '原始密码',
+                                        message: 'Current Password',
                                     },
                                 ]}
                             >
-                                <Input type='password' placeholder="请输入原始密码" style={{width: 240}}/>
+                                <Input type='password' placeholder="Please enter the current password" style={{width: 240}}/>
                             </Form.Item>
                             <Form.Item
                                 name="newPassword"
-                                label="新的密码"
+                                label="New Password"
                                 rules={[
                                     {
                                         required: true,
-                                        message: '请输入新的密码',
+                                        message: 'Please enter the new password',
                                     },
                                 ]}
                             >
-                                <Input type='password' placeholder="新的密码"
+                                <Input type='password' placeholder="NewPassword"
                                        onChange={(value) => onNewPasswordChange(value)} style={{width: 240}}/>
                             </Form.Item>
                             <Form.Item
                                 name="newPassword2"
-                                label="确认密码"
+                                label="Password Confirmation"
                                 rules={[
                                     {
                                         required: true,
-                                        message: '请和上面输入新的密码保持一致',
+                                        message: 'Password Confirmation',
                                     },
                                 ]}
                                 validateStatus={newPasswordStatus.validateStatus}
                                 help={newPasswordStatus.errorMsg || ' '}
                             >
-                                <Input type='password' placeholder="请和上面输入新的密码保持一致"
+                                <Input type='password' placeholder="Password Confirmation"
                                        onChange={(value) => onNewPassword2Change(value)} style={{width: 240}}/>
                             </Form.Item>
                             <Form.Item>
@@ -106,7 +106,7 @@ const Info = () => {
                     {/*    <AccessToken/>*/}
                     {/*</Tabs.TabPane>*/}
 
-                    <Tabs.TabPane tab="两步认证" key="totp">
+                    <Tabs.TabPane tab="Two-step authentication" key="totp">
                         <Totp/>
                     </Tabs.TabPane>
                 </Tabs>

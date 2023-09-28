@@ -163,8 +163,8 @@ const OnlineSession = () => {
                             await api.disconnect(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
                         <a key='delete' className='danger'>断开</a>
                     </Popconfirm>

@@ -39,14 +39,14 @@ class MyFile extends Component {
                     <div >
                         <Row justify="space-around" align="middle" gutter={24}>
                             <Col span={16} key={1}>
-                                <Title level={4}>我的文件</Title>
+                                <Title level={4}>My File</Title>
                             </Col>
                             <Col span={8} key={2} style={{textAlign: 'right'}}>
                                 <Descriptions title="" column={2}>
-                                    <Descriptions.Item label={<div><FireOutlined/> 大小限制</div>}>
-                                        <strong>{storage['limitSize'] < 0 ? '无限制' : renderSize(storage['limitSize'])}</strong>
+                                    <Descriptions.Item label={<div><FireOutlined/> Size Limit</div>}>
+                                        <strong>{storage['limitSize'] < 0 ? 'Unlimited' : renderSize(storage['limitSize'])}</strong>
                                     </Descriptions.Item>
-                                    <Descriptions.Item label={<div><HeartOutlined/> 已用大小</div>}>
+                                    <Descriptions.Item label={<div><HeartOutlined/> Used Size</div>}>
                                         <strong>{renderSize(storage['usedSize'])}</strong>
                                     </Descriptions.Item>
                                 </Descriptions>

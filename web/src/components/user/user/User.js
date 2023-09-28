@@ -33,7 +33,7 @@ const User = () => {
             valueType: 'indexBorder',
             width: 48,
         }, {
-            title: '用户昵称',
+            title: 'User Nickname',
             dataIndex: 'nickname',
             key: 'nickname',
             sorter: true,
@@ -45,45 +45,45 @@ const User = () => {
                 return view;
             }
         }, {
-            title: '登录账号',
+            title: 'Username',
             dataIndex: 'username',
             key: 'username',
             sorter: true,
         }, {
-            title: '邮箱',
+            title: 'Email',
             dataIndex: 'mail',
             key: 'mail',
         }, {
-            title: '状态',
+            title: 'Status',
             dataIndex: 'status',
             key: 'status',
             hideInSearch: true,
             render: (status, record, index) => {
-                return <Switch checkedChildren="启用" unCheckedChildren="禁用"
+                return <Switch checkedChildren="enable" unCheckedChildren="disable"
                                checked={status !== 'disabled'}
                                onChange={checked => {
                                    handleChangeUserStatus(record['id'], checked, index);
                                }}/>
             }
         }, {
-            title: '在线状态',
+            title: 'Status',
             dataIndex: 'online',
             key: 'online',
             valueType: 'radio',
             sorter: true,
             valueEnum: {
-                true: {text: '在线', status: 'success'},
-                false: {text: '离线', status: 'default'},
+                true: {text: 'online', status: 'success'},
+                false: {text: 'offline', status: 'default'},
             },
         },
         {
-            title: '创建时间',
+            title: 'Creation Time',
             key: 'created',
             dataIndex: 'created',
             hideInSearch: true,
         },
         {
-            title: '操作',
+            title: 'Action',
             valueType: 'option',
             key: 'option',
             render: (text, record, _, action) => [
@@ -95,22 +95,22 @@ const User = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        编辑
+                        Edit
                     </a>
                 </Show>
                 ,
                 <Show menu={'user-del'} key={'user-del'}>
                     <Popconfirm
                         key={'confirm-delete'}
-                        title="您确认要删除此行吗?"
+                        title="Are you sure you want to delete this line?"
                         onConfirm={async () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
-                        <a key='delete' className='danger'>删除</a>
+                        <a key='delete' className='danger'>delete</a>
                     </Popconfirm>
                 </Show>,
                 <TableDropdown
@@ -129,9 +129,9 @@ const User = () => {
                         }
                     }}
                     menus={[
-                        {key: 'user-detail', name: '详情', disabled: !hasMenu('user-detail')},
-                        {key: 'user-authorised-asset', name: '授权资产', disabled: !hasMenu('user-authorised-asset')},
-                        {key: 'user-login-policy', name: '登录策略', disabled: !hasMenu('user-login-policy')},
+                        {key: 'user-detail', name: 'details', disabled: !hasMenu('user-detail')},
+                        {key: 'user-authorised-asset', name: 'assets', disabled: !hasMenu('user-authorised-asset')},
+                        {key: 'user-login-policy', name: 'login policy', disabled: !hasMenu('user-login-policy')},
                     ]}
                 />,
             ],
@@ -145,14 +145,14 @@ const User = () => {
 
     const handleResetTotp = () => {
         Modal.confirm({
-            title: '您确定要重置用户的双因素认证信息吗？',
+            title: "Are you sure you want to reset the user's two-factor authentication information?",
             icon: <ExclamationCircleOutlined/>,
-            content: '重置后用户无需二次认证即可登录系统。',
+            content: 'After the reset, users can log in to the system without secondary authentication.',
             onOk() {
                 return new Promise(async (resolve, reject) => {
                     await api.resetTotp(selectedRowKeys.join(','));
                     resolve();
-                    message.success("重置成功");
+                    message.success("2FA Reset successful");
                 }).catch(() => console.log('Oops errors!'))
             },
         });
@@ -161,19 +161,19 @@ const User = () => {
     const handleChangePassword = () => {
         let password = '';
         Modal.confirm({
-            title: '修改密码',
+            title: 'Change Password',
             icon: <LockTwoTone/>,
-            content: <Input.Password onChange={e => password = e.target.value} placeholder="请输入新密码"/>,
+            content: <Input.Password onChange={e => password = e.target.value} placeholder="Please enter a new password"/>,
             onOk() {
                 return new Promise(async (resolve, reject) => {
                     if (!strings.hasText(password)) {
                         reject();
-                        message.warn("请输入密码");
+                        message.warn("Please enter password");
                         return;
                     }
                     await api.changePassword(selectedRowKeys.join(','), password);
                     resolve();
-                    message.success("修改成功");
+                    message.success("Successfully modified");
                 }).catch(() => console.log('Oops errors!'))
             },
         });
@@ -230,27 +230,27 @@ const User = () => {
                 defaultPageSize: 10,
             }}
             dateFormatter="string"
-            headerTitle="用户列表"
+            headerTitle="User List"
             toolBarRender={() => [
                 <Show menu={'user-add'}>
                     <Button key="button" type="primary" onClick={() => {
                         setVisible(true)
                     }}>
-                        新建
+                        New
                     </Button>
                 </Show>,
                 <Show menu={'user-change-password'}>
                     <Button key="button"
                             disabled={arrays.isEmpty(selectedRowKeys)}
                             onClick={handleChangePassword}>
-                        修改密码
+                        Change Password
                     </Button>
                 </Show>,
                 <Show menu={'user-reset-totp'}>
                     <Button key="button"
                             disabled={arrays.isEmpty(selectedRowKeys)}
                             onClick={handleResetTotp}>
-                        重置双因素认证
+                        Reset two-factor authentication
                     </Button>
                 </Show>,
             ]}

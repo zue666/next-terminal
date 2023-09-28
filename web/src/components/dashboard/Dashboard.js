@@ -65,7 +65,7 @@ class Dashboard extends Component {
     }
 
     handleChangeDateCounter = (value) => {
-        if(value === '按周'){
+        if(value === 'by week'){
             this.getDateCounter('week');
         }else {
             this.getDateCounter('month');
@@ -119,7 +119,7 @@ class Dashboard extends Component {
                 title: false,
                 content: {
                     formatter: () => {
-                        return '资产类型';
+                        return 'Asset Type';
                     },
                     style: {
                         fontSize: 18,
@@ -149,7 +149,7 @@ class Dashboard extends Component {
         return (<>
             <div style={{margin: 16}}>
                 <ProCard
-                    title="数据概览"
+                    title="Data Overview"
                     // extra={dayjs().format("YYYY[年]MM[月]DD[日]") + ' 星期' + weekMapping[dayjs().day()]}
                     split={'horizontal'}
                     headerBordered
@@ -160,14 +160,14 @@ class Dashboard extends Component {
                             <ProCard split='vertical'>
                                 <StatisticCard
                                     statistic={{
-                                        title: '在线用户',
+                                        title: 'Online',
                                         value: this.state.counter['onlineUser'] + '/' + this.state.counter['totalUser'],
                                         prefix: <UserOutlined/>
                                     }}
                                 />
                                 <StatisticCard
                                     statistic={{
-                                        title: '运行中资产',
+                                        title: 'Active Assets',
                                         value: this.state.counter['activeAsset'] + '/' + this.state.counter['totalAsset'],
                                         prefix: <DesktopOutlined/>
                                     }}
@@ -176,14 +176,14 @@ class Dashboard extends Component {
                             <ProCard split='vertical'>
                                 <StatisticCard
                                     statistic={{
-                                        title: '登录失败次数',
+                                        title: 'Number of failed login',
                                         value: this.state.counter['failLoginCount'],
                                         prefix: <LoginOutlined/>
                                     }}
                                 />
                                 <StatisticCard
                                     statistic={{
-                                        title: '历史会话总数',
+                                        title: 'Number of Total sessions',
                                         value: this.state.counter['offlineSession'],
                                         prefix: <DisconnectOutlined/>
                                     }}
@@ -199,8 +199,8 @@ class Dashboard extends Component {
 
                 </ProCard>
 
-                <ProCard title="会话统计" style={{marginTop: 16}}
-                         extra={<Segmented options={['按周', '按月']} onChange={this.handleChangeDateCounter}/>}>
+                <ProCard title="Session Stats" style={{marginTop: 16}}
+                         extra={<Segmented options={['by week', 'by month']} onChange={this.handleChangeDateCounter}/>}>
                     <Line {...dateCounterConfig} />
                 </ProCard>
             </div>

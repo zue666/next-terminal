@@ -20,23 +20,23 @@ const MyCommand = () => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
         }, {
-            title: '内容',
+            title: 'Content',
             dataIndex: 'content',
             key: 'content',
             copyable: true,
             ellipsis: true
         },
         {
-            title: '创建时间',
+            title: 'Creation Date',
             key: 'created',
             dataIndex: 'created',
             hideInSearch: true,
         },
         {
-            title: '操作',
+            title: 'Action',
             valueType: 'option',
             key: 'option',
             render: (text, record, _, action) => [
@@ -47,19 +47,19 @@ const MyCommand = () => {
                         setSelectedRowKey(record['id']);
                     }}
                 >
-                    编辑
+                    Edit
                 </a>,
                 <Popconfirm
                     key={'confirm-delete'}
-                    title="您确认要删除此行吗?"
+                    title="Are you sure you want to delete this row?"
                     onConfirm={async () => {
                         await api.deleteById(record.id);
                         actionRef.current.reload();
                     }}
-                    okText="确认"
-                    cancelText="取消"
+                    okText="ok"
+                    cancelText="cancel"
                 >
-                    <a key='delete' className='danger'>删除</a>
+                    <a key='delete' className='danger'>delete</a>
                 </Popconfirm>,
             ],
         },
@@ -100,12 +100,12 @@ const MyCommand = () => {
                 defaultPageSize: 10,
             }}
             dateFormatter="string"
-            headerTitle="指令列表"
+            headerTitle="Command List"
             toolBarRender={() => [
                 <Button key="button" type="primary" onClick={() => {
                     setVisible(true)
                 }}>
-                    新建
+                    New
                 </Button>,
             ]}
         />

@@ -32,8 +32,8 @@ type Gui struct {
 
 func (gui Gui) MainUI(sess ssh.Session, user model.User) {
 	prompt := promptui.Select{
-		Label:  "欢迎使用 " + branding.Name + "，请选择您要使用的功能",
-		Items:  []string{"我的资产", "退出系统"},
+		Label:  "welcome " + branding.Name + ", please select the feature you want to use",
+		Items:  []string{"my assets", "Exit system"},
 		Stdin:  sess,
 		Stdout: sess,
 	}
@@ -46,9 +46,9 @@ MainLoop:
 			return
 		}
 		switch result {
-		case "我的资产":
+		case "my assets":
 			gui.AssetUI(sess, user)
-		case "退出系统":
+		case "Exit system":
 			break MainLoop
 		}
 	}
@@ -65,7 +65,7 @@ func (gui Gui) AssetUI(sess ssh.Session, user model.User) {
 		assets[i].Port = 0
 	}
 
-	quitItem := model.AssetForPage{ID: "quit", Name: "返回上级菜单", Description: "这里是返回上级菜单的选项"}
+	quitItem := model.AssetForPage{ID: "quit", Name: "Return to the previous menu", Description: "Here is the option to return to the previous menu"}
 	assets = append([]model.AssetForPage{quitItem}, assets...)
 
 	templates := &promptui.SelectTemplates{
@@ -74,10 +74,10 @@ func (gui Gui) AssetUI(sess ssh.Session, user model.User) {
 		Inactive: "  {{ .Name | cyan }}",
 		Selected: "\U0001F336  {{ .Name | red | cyan }}",
 		Details: `
---------- 详细信息 ----------
-{{ "名称:" | faint }}	{{ .Name }}
-{{ "标签:" | faint }}	{{ .Tags }}
-{{ "备注:" | faint }}	{{ .Description }}
+--------- details ----------
+{{ "name:" | faint }}	{{ .Name }}
+{{ "tags:" | faint }}	{{ .Tags }}
+{{ "description:" | faint }}	{{ .Description }}
 `,
 	}
 
@@ -90,7 +90,7 @@ func (gui Gui) AssetUI(sess ssh.Session, user model.User) {
 	}
 
 	prompt := promptui.Select{
-		Label:     "请选择您要访问的资产",
+		Label:     "Please select the asset you want to access",
 		Items:     assets,
 		Templates: templates,
 		Size:      4,
@@ -192,13 +192,13 @@ func (gui Gui) handleAccessAsset(sess ssh.Session, sessionId string) (err error)
 	if s.AccessGatewayId != "" && s.AccessGatewayId != "-" {
 		g, err := service.GatewayService.GetGatewayById(s.AccessGatewayId)
 		if err != nil {
-			return errors.New("获取接入网关失败：" + err.Error())
+			return errors.New("Failed to obtain access gateway: " + err.Error())
 		}
 
 		defer g.CloseSshTunnel(s.ID)
 		exposedIP, exposedPort, err := g.OpenSshTunnel(s.ID, ip, port)
 		if err != nil {
-			return errors.New("开启SSH隧道失败：" + err.Error())
+			return errors.New("Failed to open SSH tunnel: " + err.Error())
 		}
 		ip = exposedIP
 		port = exposedPort
@@ -206,7 +206,7 @@ func (gui Gui) handleAccessAsset(sess ssh.Session, sessionId string) (err error)
 
 	pty, winCh, isPty := (sess).Pty()
 	if !isPty {
-		return errors.New("No PTY requested.\n")
+		return errors.New("no PTY requested")
 	}
 
 	recording := ""
@@ -236,11 +236,11 @@ func (gui Gui) handleAccessAsset(sess ssh.Session, sessionId string) (err error)
 	}
 
 	go func() {
-		log.Debug("开启窗口大小监控...")
+		log.Debug("Enable window size monitoring...")
 		for win := range winCh {
 			_ = sshSession.WindowChange(win.Height, win.Width)
 		}
-		log.Debug("退出窗口大小监控")
+		log.Debug("Exit window size monitoring")
 		// ==== 修改数据库中的会话状态为已断开,修复用户直接关闭窗口时会话状态不正确的问题 ====
 		service.SessionService.CloseSessionById(sessionId, api.Normal, "用户正常退出")
 		// ==== 修改数据库中的会话状态为已断开,修复用户直接关闭窗口时会话状态不正确的问题 ====
@@ -277,7 +277,7 @@ func (gui Gui) handleAccessAsset(sess ssh.Session, sessionId string) (err error)
 	}
 
 	// ==== 修改数据库中的会话状态为已断开 ====
-	service.SessionService.CloseSessionById(sessionId, api.Normal, "用户正常退出")
+	service.SessionService.CloseSessionById(sessionId, api.Normal, "User exits normally")
 	// ==== 修改数据库中的会话状态为已断开 ====
 
 	return nil
@@ -287,13 +287,13 @@ func (gui Gui) totpUI(sess ssh.Session, user model.User, remoteAddr string, user
 
 	validate := func(input string) error {
 		if len(input) < 6 {
-			return errors.New("双因素认证授权码必须为6个数字")
+			return errors.New("two-factor authentication authorization code must be 6 digits")
 		}
 		return nil
 	}
 
 	prompt := promptui.Prompt{
-		Label:    "请输入双因素认证授权码",
+		Label:    "Please enter the two-factor authentication authorization code",
 		Validate: validate,
 		Mask:     '*',
 		Stdin:    sess,
@@ -315,7 +315,7 @@ func (gui Gui) totpUI(sess ssh.Session, user model.User, remoteAddr string, user
 		}
 		count := v.(int)
 		if count >= 5 {
-			_, _ = io.WriteString(sess, "登录失败次数过多，请等待5分钟后再试\r\n")
+			_, _ = io.WriteString(sess, "Too many failed login attempts, please wait 5 minutes and try again.\r\n")
 			continue
 		}
 		if !common.Validate(result, user.TOTPSecret) {
@@ -323,8 +323,8 @@ func (gui Gui) totpUI(sess ssh.Session, user model.User, remoteAddr string, user
 			println(count)
 			cache.LoginFailedKeyManager.Set(loginFailCountKey, count, cache.LoginLockExpiration)
 			// 保存登录日志
-			_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "双因素认证授权码不正确")
-			_, _ = io.WriteString(sess, "您输入的双因素认证授权码不匹配\r\n")
+			_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "Two-factor authentication authorization code is incorrect")
+			_, _ = io.WriteString(sess, "The two-factor authentication authorization code you entered does not match\r\n")
 			continue
 		}
 		success = true

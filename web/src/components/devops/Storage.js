@@ -29,19 +29,19 @@ const Storage = () => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
             key: 'name',
         }, {
-            title: '是否共享',
+            title: 'Shared',
             dataIndex: 'isShare',
             key: 'isShare',
             hideInSearch: true,
             render: (isShare) => {
                 if (isShare) {
-                    return <Tag color={'green'}>是</Tag>
+                    return <Tag color={'green'}>yes</Tag>
                 } else {
-                    return <Tag color={'red'}>否</Tag>
+                    return <Tag color={'red'}>no</Tag>
                 }
             }
         }, {
@@ -51,21 +51,21 @@ const Storage = () => {
             hideInSearch: true,
             render: (isDefault) => {
                 if (isDefault) {
-                    return <Tag color={'green'}>是</Tag>
+                    return <Tag color={'green'}>yes</Tag>
                 } else {
-                    return <Tag color={'red'}>否</Tag>
+                    return <Tag color={'red'}>no</Tag>
                 }
             }
         }, {
-            title: '大小限制',
+            title: 'size limit',
             dataIndex: 'limitSize',
             key: 'limitSize',
             hideInSearch: true,
             render: (text => {
-                return text < 0 ? '无限制' : renderSize(text);
+                return text < 0 ? 'unlimited' : renderSize(text);
             })
         }, {
-            title: '已用大小',
+            title: 'used size',
             dataIndex: 'usedSize',
             key: 'usedSize',
             hideInSearch: true,
@@ -73,13 +73,13 @@ const Storage = () => {
                 return renderSize(text);
             })
         }, {
-            title: '所属用户',
+            title: 'owner',
             dataIndex: 'ownerName',
             key: 'ownerName',
             hideInSearch: true,
         },
         {
-            title: '操作',
+            title: 'action',
             valueType: 'option',
             key: 'option',
             render: (text, record, _, action) => [
@@ -91,7 +91,7 @@ const Storage = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        浏览
+                        browse
                     </a>
                 </Show>,
                 <Show menu={'storage-edit'} key={'storage-edit'}>
@@ -102,21 +102,21 @@ const Storage = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        编辑
+                        edit
                     </a>
                 </Show>,
                 <Show menu={'storage-del'} key={'storage-del'}>
                     <Popconfirm
                         key={'confirm-delete'}
-                        title="您确认要删除此行吗?"
+                        title="Are you sure you want to delete this row?"
                         onConfirm={async () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
-                        <a key='delete' disabled={record['isDefault']} className='danger'>删除</a>
+                        <a key='delete' disabled={record['isDefault']} className='danger'>delete</a>
                     </Popconfirm>
                 </Show>,
             ],
@@ -164,13 +164,13 @@ const Storage = () => {
                         pageSize: 10,
                     }}
                     dateFormatter="string"
-                    headerTitle="磁盘空间列表"
+                    headerTitle="Storage"
                     toolBarRender={() => [
                         <Show menu={'storage-add'}>
                             <Button key="button" type="primary" onClick={() => {
                                 setVisible(true)
                             }}>
-                                新建
+                                New
                             </Button>
                         </Show>,
                     ]}
@@ -205,7 +205,7 @@ const Storage = () => {
                 />
 
                 <Drawer
-                    title={'文件管理'}
+                    title={'File management'}
                     placement="right"
                     width={window.innerWidth * 0.8}
                     closable={true}

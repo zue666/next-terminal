@@ -24,11 +24,9 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          platforms: linux/arm64,linux/arm/v7,linux/amd64
+          platforms: linux/amd64
           file: guacd/Dockerfile
           push: true
           tags: |
             vcr.vsrv.pw/connect/guacd:1.4.0
             vcr.vsrv.pw/connect/guacd:latest
-          cache-from: type=registry,ref=vcr.vsrv.pw/connect/guacd:cache
-          cache-to: type=registry,ref=vcr.vsrv.pw/connect/guacd:cache,mode=max

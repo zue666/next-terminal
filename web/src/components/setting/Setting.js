@@ -262,7 +262,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
 
                             <Form.Item
@@ -276,7 +276,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
 
                             <Form.Item
@@ -290,7 +290,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
@@ -303,7 +303,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
@@ -316,7 +316,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
@@ -329,7 +329,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
@@ -342,7 +342,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
@@ -355,7 +355,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
 
                             <Form.Item {...formTailLayout}>
@@ -496,7 +496,7 @@ class Setting extends Component {
                                 label="交换红蓝成分"
                                 valuePropName="checked"
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭"/>
+                                <Switch checkedChildren="On" unCheckedChildren="Off"/>
                             </Form.Item>
 
                             <Form.Item
@@ -538,7 +538,7 @@ class Setting extends Component {
                                     },
                                 ]}
                             >
-                                <Switch checkedChildren="开启" unCheckedChildren="关闭" onChange={(checked) => {
+                                <Switch checkedChildren="On" unCheckedChildren="Off" onChange={(checked) => {
                                     this.setState({
                                         properties: {
                                             ...this.state.properties,

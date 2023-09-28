@@ -71,7 +71,7 @@ const Asset = () => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
             sorter: true,
             render: (text, record) => {
@@ -268,8 +268,8 @@ const Asset = () => {
                                 await api.deleteById(record.id);
                                 actionRef.current.reload();
                             }}
-                            okText="确认"
-                            cancelText="取消"
+                            okText="ok"
+                            cancelText="cancel"
                         >
                             <a key='delete' className='danger'>删除</a>
                         </Popconfirm>
@@ -475,9 +475,9 @@ const Asset = () => {
                                     Modal.confirm({
                                         title: '您确定要删除选中的行吗?',
                                         content: '删除之后无法进行恢复，请慎重考虑。',
-                                        okText: '确定',
+                                        okText: 'ok',
                                         okType: 'danger',
-                                        cancelText: '取消',
+                                        cancelText: 'Cancel',
                                         onOk: async () => {
                                             await api.deleteById(selectedRowKeys.join(","));
                                             actionRef.current.reload();

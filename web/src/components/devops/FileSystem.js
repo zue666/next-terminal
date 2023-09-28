@@ -236,7 +236,7 @@ class FileSystem extends Component {
                 );
                 notification.success({
                     key,
-                    message: `上传成功`,
+                    message: `Upload successful`,
                     duration: 5,
                     description: description,
                     placement: 'bottomRight'
@@ -253,7 +253,7 @@ class FileSystem extends Component {
                 );
                 notification.error({
                     key,
-                    message: `上传失败`,
+                    message: `upload failed`,
                     duration: 10,
                     description: description,
                     placement: 'bottomRight'
@@ -273,13 +273,13 @@ class FileSystem extends Component {
                 if (event.loaded === event.total) {
                     notification.info({
                         key,
-                        message: `向目标机器传输中...`,
+                        message: `Transferring to target machine...`,
                         duration: null,
                         description: description,
                         placement: 'bottomRight',
                         onClose: () => {
                             xhr.abort();
-                            message.info(`您已取消上传"${name}"`, 10);
+                            message.info(`You have canceled the upload "${name}"`, 10);
                         }
                     });
                     return;
@@ -298,13 +298,13 @@ class FileSystem extends Component {
 
                 notification.info({
                     key,
-                    message: `上传中...`,
+                    message: `uploading...`,
                     duration: null,
                     description: description,
                     placement: 'bottomRight',
                     onClose: () => {
                         xhr.abort();
-                        message.info(`您已取消上传"${name}"`, 10);
+                        message.info(`You have canceled the upload "${name}"`, 10);
                     }
                 });
                 prevPercent = percent;
@@ -330,27 +330,27 @@ class FileSystem extends Component {
                     );
                     notification.info({
                         key,
-                        message: `向目标机器传输中...`,
+                        message: `Transferring to target machine...`,
                         duration: null,
                         description: description,
                         placement: 'bottomRight',
                         onClose: () => {
                             xhr.abort();
-                            message.info(`您已取消上传"${name}"`, 10);
+                            message.info(`You have canceled the upload "${name}"`, 10);
                         }
                     });
                 }
                 return;
             }
             if (xhr.status >= 200 && xhr.status < 300) {
-                uploadEnd(true, `上传成功`);
+                uploadEnd(true, `Upload successful`);
             } else if (xhr.status >= 400 && xhr.status < 500) {
-                uploadEnd(false, '服务器内部错误');
+                uploadEnd(false, 'Server internal error');
             }
         }
 
         xhr.onerror = () => {
-            uploadEnd(false, '服务器内部错误');
+            uploadEnd(false, 'Server internal error');
         }
         xhr.open('POST', url, true);
         let formData = new FormData();
@@ -410,7 +410,7 @@ class FileSystem extends Component {
 
         const columns = [
             {
-                title: '名称',
+                title: 'name',
                 dataIndex: 'name',
                 key: 'name',
                 render: (value, item) => {
@@ -483,7 +483,7 @@ class FileSystem extends Component {
                 sortDirections: ['descend', 'ascend'],
             },
             {
-                title: '大小',
+                title: 'size',
                 dataIndex: 'size',
                 key: 'size',
                 render: (value, item) => {
@@ -503,7 +503,7 @@ class FileSystem extends Component {
                     return a.size - b.size;
                 },
             }, {
-                title: '修改日期',
+                title: 'modification date',
                 dataIndex: 'modTime',
                 key: 'modTime',
                 sorter: (a, b) => {
@@ -521,14 +521,14 @@ class FileSystem extends Component {
                     return <span className={'dode'}>{value}</span>;
                 },
             }, {
-                title: '属性',
+                title: 'mode',
                 dataIndex: 'mode',
                 key: 'mode',
                 render: (value, item) => {
                     return <span className={'dode'}>{value}</span>;
                 },
             }, {
-                title: '操作',
+                title: 'action',
                 dataIndex: 'action',
                 key: 'action',
                 width: 210,
@@ -546,29 +546,29 @@ class FileSystem extends Component {
                         <>
                             <Button type="link" size='small' disabled={disableEdit}
                                     onClick={() => this.showEditor(item['name'], item['key'])}>
-                                编辑
+                                edit
                             </Button>
                             <Button type="link" size='small' disabled={disableDownload} onClick={async () => {
                                 download(`${server}/${this.state.storageType}/${this.state.storageId}/download?file=${window.encodeURIComponent(item['key'])}&X-Auth-Token=${getToken()}&t=${new Date().getTime()}`);
                             }}>
-                                下载
+                                download
                             </Button>
                             <Button type={'link'} size={'small'} disabled={!this.state.rename} onClick={() => {
                                 this.setState({
                                     renameVisible: true,
                                     currentFileKey: item['key']
                                 })
-                            }}>重命名</Button>
+                            }}>rename</Button>
                             <Popconfirm
-                                title="您确认要删除此文件吗?"
+                                title="Are you sure you want delete this row?"
                                 onConfirm={async () => {
                                     await this.delete(item['key']);
                                     await this.refresh();
                                 }}
-                                okText="是"
-                                cancelText="否"
+                                okText="ok"
+                                cancelText="cancel"
                             >
-                                <Button type={'link'} size={'small'} disabled={!this.state.delete} danger>删除</Button>
+                                <Button type={'link'} size={'small'} disabled={!this.state.delete} danger>delete</Button>
                             </Popconfirm>
                         </>
                     );

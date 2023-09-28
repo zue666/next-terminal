@@ -33,44 +33,44 @@ const Job = () => {
             width: 48,
         },
         {
-            title: '任务名称',
+            title: 'name',
             dataIndex: 'name',
             key: 'name',
             sorter: true,
         }
         , {
-            title: '状态',
+            title: 'status',
             dataIndex: 'status',
             key: 'status',
             hideInSearch: true,
             render: (status, record, index) => {
-                return <Switch disabled={!hasMenu('job-change-status')} checkedChildren="开启" unCheckedChildren="关闭"
+                return <Switch disabled={!hasMenu('job-change-status')} checkedChildren="On" unCheckedChildren="Off"
                                checked={status === 'running'}
                                onChange={(checked) => handleChangeStatus(record['id'], checked ? 'running' : 'not-running', index)}
                 />
             }
         }, {
-            title: '任务类型',
+            title: 'Task Type',
             dataIndex: 'func',
             key: 'func',
             hideInSearch: true,
             render: (func, record) => {
                 switch (func) {
                     case "check-asset-status-job":
-                        return <Tag color="green">资产状态检测</Tag>;
+                        return <Tag color="green">Check asset Status</Tag>;
                     case "shell-job":
-                        return <Tag color="volcano">Shell脚本</Tag>;
+                        return <Tag color="volcano">Shell Script</Tag>;
                     default:
                         return '';
                 }
             }
         }, {
-            title: 'cron表达式',
+            title: 'cron jobs',
             dataIndex: 'cron',
             key: 'cron',
             hideInSearch: true,
         }, {
-            title: '创建日期',
+            title: 'Creation date',
             dataIndex: 'created',
             key: 'created',
             hideInSearch: true,
@@ -83,7 +83,7 @@ const Job = () => {
             },
             sorter: true,
         }, {
-            title: '最后执行日期',
+            title: 'Last Execution Date',
             dataIndex: 'updated',
             key: 'updated',
             hideInSearch: true,
@@ -100,7 +100,7 @@ const Job = () => {
             sorter: true,
         },
         {
-            title: '操作',
+            title: 'Actions',
             valueType: 'option',
             key: 'option',
             render: (text, record, index, action) => [
@@ -110,7 +110,7 @@ const Job = () => {
                         disabled={execLoading[index]}
                         onClick={() => handleExec(record['id'], index)}
                     >
-                        执行
+                        execute
                     </a>
                 </Show>,
                 <Show menu={'job-log'} key={'job-log'}>
@@ -118,7 +118,7 @@ const Job = () => {
                         key="logs"
                         onClick={() => handleShowLog(record['id'])}
                     >
-                        日志
+                        logs
                     </a>
                 </Show>,
                 <Show menu={'job-edit'} key={'job-edit'}>
@@ -129,21 +129,21 @@ const Job = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        编辑
+                        edit
                     </a>
                 </Show>,
                 <Show menu={'job-del'} key={'job-del'}>
                     <Popconfirm
                         key={'confirm-delete'}
-                        title="您确认要删除此行吗?"
+                        title="Are you sure you want to delete this row?"
                         onConfirm={async () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="ok"
+                        cancelText="cancel"
                     >
-                        <a key='delete' className='danger'>删除</a>
+                        <a key='delete' className='danger'>delete</a>
                     </Popconfirm>
                 </Show>,
             ],
@@ -156,13 +156,13 @@ const Job = () => {
     }
 
     const handleExec = async (id, index) => {
-        message.loading({content: '正在执行...', key: id, duration: 30});
+        message.loading({content: 'Executing...', key: id, duration: 30});
         execLoading[index] = true;
         setExecLoading(execLoading.slice());
 
         await api.exec(id);
 
-        message.success({content: '执行成功', key: id});
+        message.success({content: 'execution succeed', key: id});
         execLoading[index] = false;
         setExecLoading(execLoading.slice());
         actionRef.current.reload();
@@ -222,13 +222,13 @@ const Job = () => {
                         defaultPageSize: 10,
                     }}
                     dateFormatter="string"
-                    headerTitle="计划任务列表"
+                    headerTitle="Scheduled task list"
                     toolBarRender={() => [
                         <Show menu={'job-add'}>
                             <Button key="button" type="primary" onClick={() => {
                                 setVisible(true)
                             }}>
-                                新建
+                                New
                             </Button>
                         </Show>,
                     ]}

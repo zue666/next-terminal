@@ -14,7 +14,7 @@ const NoMatch = () => {
                 <Result
                     status="404"
                     title="404"
-                    subTitle="抱歉，您似乎到达了预期之外的页面。"
+                    subTitle="Sorry, it seems you have reached an unexpected page."
                     extra={
                         <Space>
                             <Button type="primary" onClick={() => {navigate(-1);}}>返回上一页</Button>

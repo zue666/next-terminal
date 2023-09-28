@@ -172,8 +172,8 @@ const OfflineSession = () => {
                                 await api.deleteById(record.id);
                                 actionRef.current.reload();
                             }}
-                            okText="确认"
-                            cancelText="取消"
+                            okText="ok"
+                            cancelText="cancel"
                         >
                             <a key='delete' className='danger'>删除</a>
                         </Popconfirm>
@@ -249,9 +249,9 @@ const OfflineSession = () => {
                                 Modal.confirm({
                                     title: '您确定要删除选中的行吗?',
                                     content: '删除之后无法进行恢复，请慎重考虑。',
-                                    okText: '确定',
+                                    okText: 'ok',
                                     okType: 'danger',
-                                    cancelText: '取消',
+                                    cancelText: 'Cancel',
                                     onOk: async () => {
                                         await api.deleteById(selectedRowKeys.join(","));
                                         actionRef.current.reload();
@@ -269,9 +269,9 @@ const OfflineSession = () => {
                                 Modal.confirm({
                                     title: '您确定要清空全部会话吗?',
                                     content: '清空之后无法进行恢复，请慎重考虑。',
-                                    okText: '确定',
+                                    okText: 'ok',
                                     okType: 'danger',
-                                    cancelText: '取消',
+                                    cancelText: 'Cancel',
                                     onOk: async () => {
                                         await api.clear();
                                         actionRef.current.reload();

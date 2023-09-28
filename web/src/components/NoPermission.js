@@ -14,7 +14,7 @@ const NoPermission = () => {
                 <Result
                     status="403"
                     title="403"
-                    subTitle="抱歉，您似乎没有此页面的权限。"
+                    subTitle="Sorry, it looks like you don't have permission for this page."
                     extra={
                         <Space>
                             <Button type="primary" onClick={() => {navigate(-1);}}>返回上一页</Button>

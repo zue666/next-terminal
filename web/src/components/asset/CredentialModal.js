@@ -77,8 +77,8 @@ const CredentialModal = ({
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='ok'
+            cancelText='Cancel'
         >
 
             <Form form={form} {...formItemLayout}>

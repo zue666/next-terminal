@@ -39,7 +39,7 @@ const BatchCommand = () => {
     }
 
     const columns = [{
-        title: '资产名称',
+        title: 'Asset Name',
         dataIndex: 'name',
         key: 'name',
         render: (name, record) => {
@@ -54,7 +54,7 @@ const BatchCommand = () => {
             );
         }
     }, {
-        title: '连接协议',
+        title: 'Protocol',
         dataIndex: 'protocol',
         key: 'protocol',
         render: (text, record) => {
@@ -66,7 +66,7 @@ const BatchCommand = () => {
             )
         }
     }, {
-        title: '标签',
+        title: 'Tags',
         dataIndex: 'tags',
         key: 'tags',
         render: tags => {
@@ -83,7 +83,7 @@ const BatchCommand = () => {
             }
         }
     }, {
-        title: '状态',
+        title: 'Status',
         dataIndex: 'active',
         key: 'active',
         render: text => {
@@ -103,11 +103,11 @@ const BatchCommand = () => {
             }
         }
     }, {
-        title: '所有者',
+        title: 'Owner',
         dataIndex: 'ownerName',
         key: 'ownerName'
     }, {
-        title: '创建时间',
+        title: 'Created',
         dataIndex: 'created',
         key: 'created',
         render: (text, record) => {
@@ -122,7 +122,7 @@ const BatchCommand = () => {
 
     return (<Content className="page-container">
         <div style={{paddingLeft: 24, paddingRight: 24}}>
-            <Title level={5}>待执行资产列表</Title>
+            <Title level={5}>List of assets to be executed</Title>
             <div>
                 {
                     rows.map(item => {
@@ -147,16 +147,16 @@ const BatchCommand = () => {
             tableAlertRender={({selectedRowKeys, selectedRows, onCleanSelected}) => (
                 <Space size={24}>
                               <span>
-                                已选 {selectedRowKeys.length} 项
+                                Selected {selectedRowKeys.length} 项
                               </span>
                     <span>
                                 <a onClick={() => addRows(selectedRows)}>
-                                  加入待执行列表
+                                  Add to to-do list
                                 </a>
                             </span>
                     <span>
                                 <a onClick={() => removeRows(selectedRows)}>
-                                  从待执行列表移除
+                                  Remove from to-do list
                                 </a>
                             </span>
                 </Space>
@@ -193,7 +193,7 @@ const BatchCommand = () => {
                 pageSize: 5,
             }}
             dateFormatter="string"
-            headerTitle="资产列表"
+            headerTitle="Asset list"
         />
     </Content>);
 };

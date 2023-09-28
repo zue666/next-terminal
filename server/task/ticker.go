@@ -2,21 +2,23 @@ package task
 
 import (
 	"context"
-	"github.com/shirou/gopsutil/v3/load"
 	"next-terminal/server/common/nt"
 	"next-terminal/server/service"
 	"next-terminal/server/utils"
 	"strconv"
 	"time"
 
+	"github.com/shirou/gopsutil/v3/load"
+
 	"next-terminal/server/log"
 	"next-terminal/server/repository"
+
+	"next-terminal/server/global/stat"
 
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/net"
-	"next-terminal/server/global/stat"
 )
 
 type Ticker struct {
@@ -51,7 +53,7 @@ func (t *Ticker) SetupTicker() {
 		for range systemLoader.C {
 			err := systemLoad()
 			if err != nil {
-				log.Error("采集系统负载失败", log.NamedError("err", err))
+				log.Error("Failed to collect system load", log.NamedError("err", err))
 			}
 		}
 	}()
@@ -198,7 +200,7 @@ func netCounter() (bytesSent, bytesRecv uint64, err error) {
 func (t *Ticker) deleteUnUsedSession() {
 	sessions, err := repository.SessionRepository.FindByStatusIn(context.TODO(), []string{nt.NoConnect, nt.Connecting})
 	if err != nil {
-		log.Error("查询会话列表失败", log.NamedError("err", err))
+		log.Error("Failed to query session list", log.NamedError("err", err))
 		return
 	}
 	if len(sessions) > 0 {
@@ -235,7 +237,7 @@ func deleteOutTimeSession() {
 		}
 		err := service.SessionService.DeleteByIds(context.TODO(), ids)
 		if err != nil {
-			log.Error("删除离线会话失败", log.NamedError("err", err))
+			log.Error("Failed to delete offline session", log.NamedError("err", err))
 		}
 	}
 }
@@ -250,13 +252,13 @@ func deleteOutTimeLoginLog() {
 	}
 	limit, err := strconv.Atoi(property.Value)
 	if err != nil {
-		log.Warn("获取删除登录日志保留时常失败", log.NamedError("err", err))
+		log.Warn("Getting deleted login log retention often fails", log.NamedError("err", err))
 		return
 	}
 
 	loginLogs, err := repository.LoginLogRepository.FindOutTimeLog(context.TODO(), limit)
 	if err != nil {
-		log.Warn("获取登录日志失败", log.NamedError("err", err))
+		log.Warn("Failed to obtain login log", log.NamedError("err", err))
 		return
 	}
 
@@ -264,7 +266,7 @@ func deleteOutTimeLoginLog() {
 		for i := range loginLogs {
 			err := repository.LoginLogRepository.DeleteById(context.TODO(), loginLogs[i].ID)
 			if err != nil {
-				log.Warn("删除登录日志失败", log.NamedError("err", err))
+				log.Warn("Failed to delete login log", log.NamedError("err", err))
 			}
 		}
 	}
@@ -292,7 +294,7 @@ func deleteOutTimeJobLog() {
 		for i := range jobLogs {
 			err := repository.JobLogRepository.DeleteById(context.TODO(), jobLogs[i].ID)
 			if err != nil {
-				log.Error("删除计划日志失败", log.NamedError("err", err))
+				log.Error("Failed to delete plan log", log.NamedError("err", err))
 			}
 		}
 	}

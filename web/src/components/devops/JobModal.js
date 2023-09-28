@@ -56,7 +56,7 @@ const JobModal = ({
 
     return (
         <Modal
-            title={id ? '更新计划任务' : '新建计划任务'}
+            title={id ? 'Update scheduled tasks' : 'Create a new scheduled task'}
             visible={visible}
             maskClosable={false}
             destroyOnClose={true}
@@ -77,8 +77,8 @@ const JobModal = ({
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='ok'
+            cancelText='Cancel'
         >
 
             <Form form={form} {...formItemLayout}
@@ -92,49 +92,49 @@ const JobModal = ({
                     <Input hidden={true}/>
                 </Form.Item>
 
-                <Form.Item label="任务类型" name='func' rules={[{required: true, message: '请选择任务类型'}]}>
+                <Form.Item label="Task type" name='func' rules={[{required: true, message: 'Please select task type'}]}>
                     <Select onChange={(value) => {
                         setFunc(value);
                     }}>
-                        <Select.Option value="shell-job">Shell脚本</Select.Option>
-                        <Select.Option value="check-asset-status-job">资产状态检测</Select.Option>
+                        <Select.Option value="shell-job">Shell Script</Select.Option>
+                        <Select.Option value="check-asset-status-job">Asset status detection</Select.Option>
                     </Select>
                 </Form.Item>
 
-                <Form.Item label="任务名称" name='name' rules={[{required: true, message: '请输入任务名称'}]}>
-                    <Input autoComplete="off" placeholder="请输入任务名称"/>
+                <Form.Item label="任务名称" name='name' rules={[{required: true, message: 'Please enter a task name'}]}>
+                    <Input autoComplete="off" placeholder="Please enter a task name"/>
                 </Form.Item>
 
                 {
                     func === 'shell-job' ?
-                        <Form.Item label="Shell脚本" name='shell'
-                                   rules={[{required: true, message: '请输入Shell脚本'}]}>
-                            <TextArea autoSize={{minRows: 5, maxRows: 10}} placeholder="在此处填写Shell脚本内容"/>
+                        <Form.Item label="Shell script" name='shell'
+                                   rules={[{required: true, message: 'Please enter Shell script'}]}>
+                            <TextArea autoSize={{minRows: 5, maxRows: 10}} placeholder="Fill in the Shell script content here"/>
                         </Form.Item> : undefined
                 }
 
-                <Form.Item label="cron表达式" name='cron' rules={[{required: true, message: '请输入cron表达式'}]}>
-                    <Input placeholder="请输入cron表达式"/>
+                <Form.Item label="cron job" name='cron' rules={[{required: true, message: 'Please enter cron job'}]}>
+                    <Input placeholder="Please enter cron job"/>
                 </Form.Item>
 
-                <Form.Item label="资产选择" name='mode' rules={[{required: true, message: '请选择资产'}]}>
+                <Form.Item label="Asset selection" name='mode' rules={[{required: true, message: 'Please select an asset'}]}>
                     <Radio.Group onChange={async (e) => {
                         setMode(e.target.value);
                     }}>
-                        <Radio value={'all'}>全部资产</Radio>
-                        <Radio value={'custom'}>自定义</Radio>
-                        <Radio value={'self'}>本机</Radio>
+                        <Radio value={'all'}>All</Radio>
+                        <Radio value={'custom'}>custom</Radio>
+                        <Radio value={'self'}>local</Radio>
                     </Radio.Group>
                 </Form.Item>
 
                 {
                     mode === 'custom' &&
-                    <Spin tip='加载中...' spinning={resQuery.isLoading}>
-                        <Form.Item label="已选择资产" name='resourceIds' rules={[{required: true}]}>
+                    <Spin tip='loading...' spinning={resQuery.isLoading}>
+                        <Form.Item label="Asset selected" name='resourceIds' rules={[{required: true}]}>
                             <Select
                                 mode="multiple"
                                 allowClear
-                                placeholder="请选择资产"
+                                placeholder="Please select an asset"
                                 options={resOptions}
                             >
                             </Select>

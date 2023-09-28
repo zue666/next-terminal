@@ -27,13 +27,13 @@ const AccessGateway = () => {
             width: 48,
         },
         {
-            title: '网关类型',
+            title: 'Gateway Type',
             dataIndex: 'gatewayType',
             key: 'gatewayType',
             hideInSearch: true
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
         },
         {
@@ -43,62 +43,62 @@ const AccessGateway = () => {
             sorter: true,
             hideInSearch: true
         }, {
-            title: '端口',
+            title: 'Port',
             dataIndex: 'port',
             key: 'port',
             hideInSearch: true
         }, {
-            title: '账户类型',
+            title: 'Account Type',
             dataIndex: 'accountType',
             key: 'accountType',
             hideInSearch: true,
             render: (accountType) => {
                 if (accountType === 'private-key') {
                     return (
-                        <Tag color="green">密钥</Tag>
+                        <Tag color="green">Key</Tag>
                     );
                 } else if (accountType === 'password') {
                     return (
-                        <Tag color="red">密码</Tag>
+                        <Tag color="red">Password</Tag>
                     );
                 } else {
                     return <>-</>
                 }
             }
         }, {
-            title: '授权账户',
+            title: 'Authorized account',
             dataIndex: 'username',
             key: 'username',
             hideInSearch: true
         }, {
-            title: '状态',
+            title: 'State',
             dataIndex: 'connected',
             key: 'connected',
             hideInSearch: true,
             render: (text, record) => {
                 if (text) {
                     return (
-                        <Tooltip title='连接成功'>
-                            <Badge status="success" text='已连接' />
+                        <Tooltip title='Successfully connected'>
+                            <Badge status="success" text='connected' />
                         </Tooltip>
                     )
                 } else {
                     return (
                         <Tooltip title={record['message']}>
-                            <Badge status="default" text='已断开' />
+                            <Badge status="default" text='Disconnected' />
                         </Tooltip>
                     )
                 }
             }
         },
         {
-            title: '创建时间',
+            title: 'creation time',
             key: 'created',
             dataIndex: 'created',
             hideInSearch: true,
         },
         {
-            title: '操作',
+            title: 'operation',
             valueType: 'option',
             key: 'option',
             render: (text, record, _, action) => [
@@ -110,21 +110,21 @@ const AccessGateway = () => {
                             setSelectedRowKey(record['id']);
                         }}
                     >
-                        编辑
+                        edit
                     </a>
                 </Show>,
                 <Show menu={'access-gateway-del'} key={'access-gateway-del'}>
                     <Popconfirm
                         key={'confirm-delete'}
-                        title="您确认要删除此行吗?"
+                        title="Are you sure you want to delete this row?"
                         onConfirm={async () => {
                             await api.deleteById(record.id);
                             actionRef.current.reload();
                         }}
-                        okText="确认"
-                        cancelText="取消"
+                        okText="confirm"
+                        cancelText="cancel"
                     >
-                        <a key='delete' className='danger'>删除</a>
+                        <a key='delete' className='danger'>delete</a>
                     </Popconfirm>
                 </Show>,
             ],
@@ -170,13 +170,13 @@ const AccessGateway = () => {
                 defaultPageSize: 10,
             }}
             dateFormatter="string"
-            headerTitle="接入网关列表"
+            headerTitle="Access Gateway List"
             toolBarRender={() => [
                 <Show menu={'access-gateway-add'}>
                     <Button key="button" type="primary" onClick={() => {
                         setVisible(true)
                     }}>
-                        新建
+                        New
                     </Button>
                 </Show>,
             ]}

@@ -41,13 +41,13 @@ func (sshd sshd) passwordAuth(ctx ssh.Context, pass string) bool {
 
 	if err != nil {
 		// 保存登录日志
-		_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "账号或密码不正确")
+		_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "The account or password is incorrect")
 		return false
 	}
 
 	if err := utils.Encoder.Match([]byte(user.Password), []byte(pass)); err != nil {
 		// 保存登录日志
-		_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "账号或密码不正确")
+		_ = service.UserService.SaveLoginLog(remoteAddr, "terminal", username, false, false, "", "The account or password is incorrect")
 		return false
 	}
 	return true
@@ -113,7 +113,7 @@ func (sshd sshd) sessionHandler(sess ssh.Session) {
 	user, err := repository.UserRepository.FindByUsername(context.TODO(), username)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			_, _ = io.WriteString(sess, "您输入的账户或密码不正确.\n")
+			_, _ = io.WriteString(sess, "The account or password you entered is incorrect.\n")
 		} else {
 			_, _ = io.WriteString(sess, err.Error())
 		}
@@ -144,5 +144,5 @@ func (sshd sshd) Serve() {
 		ssh.HostKeyFile(config.GlobalCfg.Sshd.Key),
 		ssh.WrapConn(sshd.connCallback),
 	)
-	log.Fatal(fmt.Sprintf("启动sshd服务失败: %v", err.Error()))
+	log.Fatal(fmt.Sprintf("Failed to start sshd service: %v", err.Error()))
 }

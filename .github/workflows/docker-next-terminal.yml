@@ -40,14 +40,12 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          platforms: linux/arm64,linux/arm/v7,linux/amd64
+          platforms: linux/amd64
           file: Dockerfile
           push: true
           tags: |
             vcr.vsrv.pw/connect/next-terminal:latest
             vcr.vsrv.pw/connect/next-terminal:${{ steps.get_version.outputs.VERSION }}
-          cache-from: type=registry,ref=vcr.vsrv.pw/connect/next-terminal:cache
-          cache-to: type=registry,ref=vcr.vsrv.pw/connect/next-terminal:cache,mode=max
 
   DOCKERHUB_Hub_Description:
     needs: [ DOCKERHUB_next-terminal_Build ]

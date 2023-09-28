@@ -108,13 +108,13 @@ const Term = () => {
         term.focus();
 
         if (!assetId) {
-            writeErrorMessage(term, `参数缺失，请关闭此页面后重新打开。`)
+            writeErrorMessage(term, `Parameters are missing, please close this page and reopen it.`)
             return;
         }
 
         let [session, errMsg] = await createSession(assetId);
         if (!session) {
-            writeErrorMessage(term, `创建会话失败，${errMsg}`)
+            writeErrorMessage(term, `Failed to create session, ${errMsg}`)
             return;
         }
 
@@ -125,7 +125,7 @@ const Term = () => {
         document.body.oncopy = (event) => {
             event.preventDefault();
             if (session['copy'] === '0') {
-                message.warn('禁止复制')
+                message.warn('Reproduction prohibited')
                 return false;
             } else {
                 return true;
@@ -135,7 +135,7 @@ const Term = () => {
         document.body.onpaste = (event) => {
             event.preventDefault();
             if (session['paste'] === '0') {
-                message.warn('禁止粘贴')
+                message.warn('Disable pasting')
                 return false;
             } else {
                 return true;
@@ -191,7 +191,7 @@ const Term = () => {
                     term.write(msg['content']);
                     break;
                 case Message.Closed:
-                    console.log(`服务端通知需要关闭连接`)
+                    console.log(`Server notification needs to close the connection`)
                     term.writeln(`\x1B[1;3;31m${msg['content']}\x1B[0m `);
                     webSocket.close();
                     break;
@@ -207,7 +207,7 @@ const Term = () => {
     }
 
     const handleUnload = (e) => {
-        const message = "要离开网站吗？";
+        const message = "Do you want to leave the site? ";
         (e || window.event).returnValue = message; //Gecko + IE
         return message;
     }
@@ -296,7 +296,7 @@ const Term = () => {
             </Draggable>
 
             <Drawer
-                title={'会话详情'}
+                title={'Session details'}
                 placement="right"
                 width={window.innerWidth * 0.8}
                 closable={true}
@@ -320,7 +320,7 @@ const Term = () => {
             </Drawer>
 
             <Drawer
-                title={'状态信息'}
+                title={'Status'}
                 placement="right"
                 width={window.innerWidth * 0.8}
                 closable={true}
@@ -334,16 +334,16 @@ const Term = () => {
                 extra={
                     <Space>
                         <div style={{width: 100}}>
-                            <Text>查询时间间隔</Text>
+                            <Text>Query time interval</Text>
                         </div>
 
                         <Select defaultValue="5000" style={{width: 80}} onChange={(value) => {
                             setQueryInterval(parseInt(value));
                         }}>
-                            <Select.Option value="1000">1秒</Select.Option>
-                            <Select.Option value="5000">5秒</Select.Option>
-                            <Select.Option value="15000">15秒</Select.Option>
-                            <Select.Option value="30000">30秒</Select.Option>
+                            <Select.Option value="1000">1second</Select.Option>
+                            <Select.Option value="5000">5seconds</Select.Option>
+                            <Select.Option value="15000">15seconds</Select.Option>
+                            <Select.Option value="30000">30seconds</Select.Option>
                         </Select>
                     </Space>
                 }

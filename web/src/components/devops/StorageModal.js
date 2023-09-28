@@ -55,7 +55,7 @@ const StorageModal = ({
 
     return (
         <Modal
-            title={id ? '更新磁盘空间' : '新建磁盘空间'}
+            title={id ? 'Update disk space' : 'Add new storage'}
             visible={visible}
             maskClosable={false}
             destroyOnClose={true}
@@ -104,8 +104,8 @@ const StorageModal = ({
                 handleCancel();
             }}
             confirmLoading={confirmLoading}
-            okText='确定'
-            cancelText='取消'
+            okText='ok'
+            cancelText='Cancel'
         >
 
             <Form form={form} {...formItemLayout}>
@@ -113,17 +113,17 @@ const StorageModal = ({
                     <Input hidden={true}/>
                 </Form.Item>
 
-                <Form.Item label="名称" name='name' rules={[{required: true, message: '请输入名称'}]}>
-                    <Input autoComplete="off" placeholder="网盘的名称"/>
+                <Form.Item label="name" name='name' rules={[{required: true, message: 'Please enter name'}]}>
+                    <Input autoComplete="off" placeholder="The name of the network disk"/>
                 </Form.Item>
 
-                <Form.Item label="是否共享" name='isShare' rules={[{required: true, message: '请选择是否共享'}]}
+                <Form.Item label="Share?" name='isShare' rules={[{required: true, message: 'Please choose whether to share'}]}
                            valuePropName="checked">
-                    <Switch checkedChildren="是" unCheckedChildren="否"/>
+                    <Switch checkedChildren="yes" unCheckedChildren="no"/>
                 </Form.Item>
 
-                <Form.Item label="大小限制" name='limitSize' rules={[{required: true, message: '请输入大小限制'}]}
-                           tooltip='无限制请填写-1'>
+                <Form.Item label="size limit" name='limitSize' rules={[{required: true, message: 'Please enter size limit'}]}
+                           tooltip='to mark it as Unlimited please fill in -1'>
                     <InputNumber min={-1} addonAfter={selectAfter} style={{width: 275}}/>
                 </Form.Item>
 

@@ -25,7 +25,7 @@ const UserLoginPolicy = ({active, userId}) => {
             width: 48,
         },
         {
-            title: '名称',
+            title: 'Name',
             dataIndex: 'name',
             render: (text, record) => {
                 return <Link to={`/login-policy/${record['id']}`}>{text}</Link>;

@@ -21,14 +21,14 @@ FROM alpine:latest
 
 LABEL MAINTAINER="helloworld1024@foxmail.com"
 
-ENV TZ Asia/Shanghai
+ENV TZ Asia/Baghdad
 ENV DB sqlite
 ENV SQLITE_FILE './data/sqlite/next-terminal.db'
 ENV SERVER_PORT 8088
 ENV SERVER_ADDR 0.0.0.0:$SERVER_PORT
 ENV SSHD_PORT 8089
 ENV SSHD_ADDR 0.0.0.0:$SSHD_PORT
-ENV TIME_ZONE=Asia/Shanghai
+ENV TIME_ZONE=Asia/Baghdad
 RUN ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone
 
 WORKDIR /usr/local/next-terminal

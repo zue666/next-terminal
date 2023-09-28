@@ -87,7 +87,7 @@ const Totp = () => {
                                             content: '解除之后可能存在系统账号被暴力破解的风险。',
                                             okText: '确认',
                                             okType: 'danger',
-                                            cancelText: '取消',
+                                            cancelText: 'Cancel',
                                             onOk: async () => {
                                                 let success = await accountApi.resetTotp();
                                                 if (success) {

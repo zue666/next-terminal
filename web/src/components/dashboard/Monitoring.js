@@ -14,13 +14,13 @@ const {Statistic} = StatisticCard;
 
 const renderLoad = (percent) => {
     if (percent >= 0.9) {
-        return '堵塞';
+        return 'blocked';
     } else if (percent >= 0.8) {
-        return '缓慢';
+        return 'slow';
     } else if (percent >= 0.7) {
-        return '正常';
+        return 'normal';
     } else {
-        return '流畅';
+        return 'Smooth';
     }
 }
 
@@ -200,9 +200,9 @@ const Monitoring = () => {
         yField: ['read', 'write'],
         meta: {
             read: {
-                alias: '读取（MB/s）',
+                alias: 'Read (MB/s)',
             }, write: {
-                alias: '写入（MB/s）'
+                alias: 'Write (MB/s)'
             }
         },
         geometryOptions: [{
@@ -219,9 +219,9 @@ const Monitoring = () => {
         yField: ['read', 'write'],
         meta: {
             read: {
-                alias: '接收（MB/s）',
+                alias: 'Receive (MB/s)',
             }, write: {
-                alias: '发送（MB/s）'
+                alias: 'Send (MB/s)'
             }
         },
         geometryOptions: [{
@@ -248,8 +248,8 @@ const Monitoring = () => {
     return (<>
         <div style={{margin: 16}}>
             <ProCard
-                title="系统监控"
-                extra={dayjs().format("YYYY[年]MM[月]DD[日]") + ' ' + renderWeekDay(dayjs().day())}
+                title="System Monitoring"
+                extra={dayjs().format("YYYY[Year]MM[Month]DD[Day]") + ' ' + renderWeekDay(dayjs().day())}
                 split={'horizontal'}
                 headerBordered
                 bordered
@@ -258,7 +258,7 @@ const Monitoring = () => {
                     <ProCard>
                         <StatisticCard
                             statistic={{
-                                title: '负载',
+                                title: 'Load',
                                 value: renderLoad(monitorQuery.data['loadStat']['percent']),
                                 description: <Space direction="vertical" size={1}>
                                     <Statistic title="Load1" value={monitorQuery.data['loadStat']['load1'].toFixed(2)}/>
@@ -277,12 +277,12 @@ const Monitoring = () => {
                                 value: monitorQuery.data['cpu']['count'],
                                 suffix: '个',
                                 description: <Space direction="vertical" size={1}>
-                                    <Statistic title="利用率"
+                                    <Statistic title="Utilization"
                                                value={monitorQuery.data['cpu']['usedPercent'].toFixed(2) + '%'}/>
-                                    <Statistic title="物理核数"
+                                    <Statistic title="Cores"
                                                value={monitorQuery.data['cpu']['phyCount'] + ' 个'}/>
                                     <Tooltip title={monitorQuery.data['cpu']['info'][0]['modelName']}>
-                                        <Statistic title="型号" value={cpuModelName}/>
+                                        <Statistic title="Model" value={cpuModelName}/>
                                     </Tooltip>
                                 </Space>,
                             }}
@@ -293,14 +293,14 @@ const Monitoring = () => {
                     <ProCard>
                         <StatisticCard
                             statistic={{
-                                title: '内存',
+                                title: 'Memory',
                                 value: renderSize(monitorQuery.data['mem']['total']),
                                 description: <Space direction="vertical" size={1}>
-                                    <Statistic title="利用率"
+                                    <Statistic title="Utilization"
                                                value={monitorQuery.data['mem']['usedPercent'].toFixed(2) + '%'}/>
-                                    <Statistic title="可用的"
+                                    <Statistic title="Available"
                                                value={renderSize(monitorQuery.data['mem']['available'])}/>
-                                    <Statistic title="已使用" value={renderSize(monitorQuery.data['mem']['used'])}/>
+                                    <Statistic title="Used" value={renderSize(monitorQuery.data['mem']['used'])}/>
                                 </Space>,
                             }}
                             chart={<Liquid {...memStatConfig} />}
@@ -309,14 +309,14 @@ const Monitoring = () => {
 
                         <StatisticCard
                             statistic={{
-                                title: '硬盘',
+                                title: 'Storage',
                                 value: renderSize(monitorQuery.data['disk']['total']),
                                 description: <Space direction="vertical" size={1}>
-                                    <Statistic title="利用率"
+                                    <Statistic title="Utilization"
                                                value={monitorQuery.data['disk']['usedPercent'].toFixed(2) + '%'}/>
-                                    <Statistic title="剩余的"
+                                    <Statistic title="Available"
                                                value={renderSize(monitorQuery.data['disk']['available'])}/>
-                                    <Statistic title="已使用" value={renderSize(monitorQuery.data['disk']['used'])}/>
+                                    <Statistic title="Used" value={renderSize(monitorQuery.data['disk']['used'])}/>
                                 </Space>,
                             }}
                             chart={<Liquid {...diskStatConfig} />}
@@ -326,19 +326,19 @@ const Monitoring = () => {
                 </ProCard>
 
                 <ProCard split={'vertical'}>
-                    <ProCard title="CPU负载">
+                    <ProCard title="CPU Load">
                         <Area {...cpuConfig} />
                     </ProCard>
-                    <ProCard title="内存负载">
+                    <ProCard title="Memory Load">
                         <Area {...memConfig} />
                     </ProCard>
                 </ProCard>
 
                 <ProCard split={'vertical'}>
-                    <ProCard title="网络吞吐">
+                    <ProCard title="Network Throughput">
                         <DualAxes onlyChangeData={true} {...netIOConfig} />
                     </ProCard>
-                    <ProCard title="磁盘IO">
+                    <ProCard title="Disk IO">
                         <DualAxes onlyChangeData={true} {...diskIOConfig} />
                     </ProCard>
 
