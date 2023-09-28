@@ -1,4 +1,4 @@
-FROM vcr.vsrv.pw/connect/guacamole-server:1.4.0
+FROM dushixiang/guacamole-server:1.4.0
 
 LABEL MAINTAINER="helloworld1024@foxmail.com"
 
