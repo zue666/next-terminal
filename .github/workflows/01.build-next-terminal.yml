@@ -1,0 +1,41 @@
+name: 01.build-next-terminal
+
+on:
+    push:
+      branches: [ main ]
+      paths: web
+    pull_request:
+      branches:  none # [ main ]
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+    build:
+        name: Docker next-terminal Build
+        runs-on: ubuntu-latest
+        steps:
+        - name: Git Checkout
+          uses: actions/checkout@v2
+        - name: Set outputs
+          id: vars
+          run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        - name: Check outputs
+          run: echo ${{ steps.vars.outputs.sha_short }}
+        - name: Login to Docker Hub
+          run: |
+            echo "${{ secrets.VCR_PASSOWRD }}" | docker login vcr.vsrv.pw -u ${{ secrets.VCR_USERNAME }} --password-stdin
+        - name: npm install
+          run: |
+            cd web
+            npm install --global yarn
+            yarn
+            yarn build
+        - name: Build and push Docker images
+          uses: docker/build-push-action@v2.7.0
+          with:
+            context: .
+            platforms: linux/amd64
+            file: Dockerfile
+            push: true
+            tags: |
+              vcr.vsrv.pw/connect/next-terminal:${{ steps.vars.outputs.sha_short }}
