@@ -38,9 +38,9 @@ jobs:
           cp config.yml.example next-terminal/config.yml
           cp LICENSE next-terminal/
           tar zcvf next-terminal.tar.gz next-terminal/
-      - name: release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: next-terminal.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: next-terminal.tar.gz
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

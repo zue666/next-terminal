@@ -24,16 +24,17 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v1.10.0
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          registry: vcr.vsrv.pw
+          username: ${{ secrets.VCR_USERNAME }}
+          password: ${{ secrets.VCR_PASSWORD }}
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
-          platforms: linux/arm64,linux/arm/v7,linux/amd64
+          platforms: linux/amd64
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/guacamole-server:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/guacamole-server:1.4.0
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacamole-server:cache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/guacamole-server:cache,mode=max
+            vcr.vsrv.pw/connect/guacamole-server:latest
+            vcr.vsrv.pw/connect/guacamole-server:1.4.0
+          cache-from: type=registry,ref=vcr.vsrv.pw/connect/guacamole-server:cache
+          cache-to: type=registry,ref=vcr.vsrv.pw/connect/guacamole-server:cache,mode=max
