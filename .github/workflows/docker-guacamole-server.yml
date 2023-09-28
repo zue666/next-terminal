@@ -34,5 +34,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            vcr.vsrv.pw/connect/guacamole-server:latest
             vcr.vsrv.pw/connect/guacamole-server:1.4.0

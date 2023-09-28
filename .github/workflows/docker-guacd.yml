@@ -29,4 +29,3 @@ jobs:
           push: true
           tags: |
             vcr.vsrv.pw/connect/guacd:1.4.0
-            vcr.vsrv.pw/connect/guacd:latest
